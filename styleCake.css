@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffe0e0, #ffffff);
+    padding: 20px;
+  }
+  
+  .cake-container {
+    margin-top: 30px;
+  }
+  
+  .cake {
+    width: 200px;
+    height: 150px;
+    background: #8B0000;
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .layers {
+    width: 180px;
+    height: 40px;
+    background: #fff;
+    border-radius: 5px;
+    position: absolute;
+    top: 100px;
+    left: 10px;
+  }
+  
+  .candles {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: -40px;
+    left: 70px;
+  }
+  
+  .flame {
+    width: 10px;
+    height: 20px;
+    background: orange;
+    border-radius: 50% 50% 0 0;
+    margin: 0 5px;
+    animation: flicker 0.3s infinite;
+  }
+  
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  
+
+  /*new added*/
+
+  /* .cake {
+    position: relative;
+    width: 220px;
+    margin: 20px auto;
+    height: auto;
+  }
+  
+  .layer {
+    height: 40px;
+    border-radius: 10px;
+    margin: 2px 0;
+  }
+  
+  .chocolate {
+    background-color: #6b3e26;
+  }
+  
+  .cream {
+    background-color: #fff5e0;
+  }
+  
+  .candles {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 10px;
+  }
+  
+  .candle {
+    width: 10px;
+    height: 30px;
+    background: #ff69b4;
+    position: relative;
+    border-radius: 2px;
+  }
+  
+  .flame {
+    width: 8px;
+    height: 12px;
+    background: orange;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -14px;
+    left: 1px;
+    animation: flicker 0.3s infinite;
+  }
+  
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; transform: scaleY(1.2); }
+    100% { opacity: 1; }
+  }
+  
+  .toppings {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: -10px;
+  }
+  
+  .cherry {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #800000;
+  }
+   */
+  

@@ -1,0 +1,43 @@
+#flipbook {
+    perspective: 2000px;
+    position: relative;
+  }
+  
+  .page {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: transform 0.7s ease;
+    backface-visibility: hidden;
+    overflow: hidden;
+    cursor: grab;
+  }
+  
+  .page img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .page.left {
+    left: 0;
+    transform-origin: right;
+    z-index: 10;
+  }
+  
+  .page.right {
+    left: 50%;
+    transform-origin: left;
+    z-index: 10;
+  }
+  
+  .page.flipped.left {
+    transform: rotateY(180deg);
+    z-index: 0 !important;
+  }
+  
+  .page.flipped.right {
+    transform: rotateY(-180deg);
+    z-index: 0 !important;
+  }

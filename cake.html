@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Kitty!</title>
+  <style>
+    body {
+      margin: 0;
+      background: #ffe6f0;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+    }
+
+    .birthday-message {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 3em;
+      color: #ff1493;
+      animation: popIn 2s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .cake-container {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: 40px auto;
+    }
+
+    .cake {
+      position: relative;
+      width: 300px;
+      height: 150px;
+      background: radial-gradient(circle, #ffc0cb 30%, #ff69b4 100%);
+      border-radius: 50% / 20%;
+      overflow: visible;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      transition: 0.8s;
+    }
+
+    .cake::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+      background: #ff69b4;
+      border-radius: 50%;
+    }
+
+    .candles {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+    .candle {
+      width: 10px;
+      height: 30px;
+      background: linear-gradient(to bottom, #fff, #ccc);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .flame {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 16px;
+      background: radial-gradient(ellipse at center, #ff0 0%, #ffa500 60%, transparent 80%);
+      border-radius: 50% 50% 40% 40%;
+      animation: flicker 0.2s infinite alternate;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
+    }
+
+    @keyframes flicker {
+      from { transform: translateX(-50%) scale(1); opacity: 0.8; }
+      to { transform: translateX(-50%) scale(1.2); opacity: 1; }
+    }
+
+    .slice {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-top: 150px solid #fff0f5;
+      border-left: 75px solid transparent;
+      border-right: 75px solid transparent;
+      transform: translateX(-50%) rotate(0deg);
+      transform-origin: bottom center;
+      z-index: 5;
+      transition: transform 2s ease;
+      display: none;
+    }
+
+    .slice.show {
+      display: block;
+      transform: translateX(-50%) rotate(25deg) translateY(-30px);
+    }
+
+    .gift-box {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: #ff69b4;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    .gift-box:before, .gift-box:after {
+      content: "";
+      position: absolute;
+      background: white;
+    }
+
+    .gift-box:before {
+      width: 100%;
+      height: 10px;
+      top: 45%;
+      left: 0;
+    }
+
+    .gift-box:after {
+      width: 10px;
+      height: 100%;
+      left: 45%;
+      top: 0;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff0;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { top: -10px; opacity: 1; }
+      100% { top: 100vh; opacity: 0; }
+    }
+
+    .wish-text {
+      font-size: 2em;
+      text-align: center;
+      color: #d63384;
+      margin-top: 20px;
+      animation: popIn 1.5s ease-out;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .cut-button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="birthday-message">🎂 Happy Birthday, Kitty! 🎉</div>
+
+  <br><br><br><div class="cake-container">
+    <div class="candles">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <div class="cake" id="cake"></div>
+    <div class="slice" id="slice"></div>
+  </div>
+  <button class="cut-button" onclick="location.href='album.html'">Album</button>
+  <!-- <button class="cut-button" onclick="cutCake()">Cut the Cake</button> -->
+
+  <div class="gift-box" onclick="openGift()"></div>
+
+  <div id="wish" class="wish-text hidden">🎁 Surprise! Wishing you a magical year ahead, Kitty! 💖</div>
+
+  <!-- <button class="cut-button" onclick="location.href='album.html'">Album</button> -->
+
+  <script>
+    // Confetti
+    for (let i = 0; i < 80; i++) {
+      const confetti = document.createElement("div");
+      confetti.className = "confetti";
+      confetti.style.left = `${Math.random() * 100}vw`;
+      confetti.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      confetti.style.animationDuration = `${2 + Math.random() * 3}s`;
+      document.body.appendChild(confetti);
+    }
+
+    //function cutCake() {
+    //  const slice = document.getElementById("slice");
+    //  slice.classList.add("show");
+   // }
+
+    function openGift() {
+      const wish = document.getElementById("wish");
+      wish.classList.remove("hidden");
+      // alert("🎉 Kitty, you're awesome! Enjoy your special day! 🎈");
+    }
+  </script>
+
+</body>
+</html>
+
+

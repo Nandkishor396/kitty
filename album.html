@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Album</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe4e6, #fce7f3);
+      color: #ec4899;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #db2777;
+    }
+
+    .album-container {
+      width: 100%;
+      max-width: 700px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      user-select: none;
+    }
+
+    .slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .nav-dots {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: #ddd;
+      border-radius: 50%;
+      margin: 0 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background-color: #ec4899;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Happy Birthday! Kitty</h1>
+
+  <div class="album-container" id="album">
+    <div class="slider" id="slider">
+      <div class="slide"><img src="./fo.jpg" alt="Photo 1" /></div>
+      <div class="slide"><img src="./6_07_25(goodnight).jpg" alt="Photo 2" /></div>
+      <div class="slide"><img src="./3_07_25.jpg" alt="Photo 3" /></div>
+      <div class="slide"><img src="./07_0725.jpg" alt="Photo 4" /></div>
+      <div class="slide"><img src="./07_07_25.jpg" alt="Photo 4" /></div>
+      <div class="slide"><img src="./date.jpg" alt="Photo 4" /></div>
+      <div class="slide"><img src="./18_06_25.jpg" alt="Photo 4" /></div>
+
+      <div class="slide"><img src="./10_07_25.jpg" alt="Photo 4" /></div>
+      <div class="slide"><img src="./10_07_25 (1).jpg" alt="Photo 4" /></div>
+      <div class="slide"><img src="./10_07_25(2).jpg" alt="Photo 4" /></div>
+      
+      <div class="slide"><img src="./9_07_24.jpg" alt="Photo 4" /></div>
+    </div>
+    <div class="nav-dots" id="dots"></div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const dotsContainer = document.getElementById('dots');
+    const slides = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+
+    // Create dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    const updateDots = () => {
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentIndex);
+      });
+    };
+
+    const goToSlide = (index) => {
+      currentIndex = index;
+      slider.style.transform = `translateX(-${100 * currentIndex}%)`;
+      updateDots();
+    };
+
+    // Swipe / Drag Support
+    let startX = 0;
+    let isDragging = false;
+
+    // Touch
+    slider.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    slider.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const endX = e.changedTouches[0].clientX;
+      handleSwipe(endX - startX);
+      isDragging = false;
+    });
+
+    // Mouse
+    slider.addEventListener('mousedown', (e) => {
+      startX = e.clientX;
+      isDragging = true;
+    });
+
+    slider.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      const endX = e.clientX;
+      handleSwipe(endX - startX);
+      isDragging = false;
+    });
+
+    function handleSwipe(deltaX) {
+      const threshold = 50;
+      if (deltaX > threshold && currentIndex > 0) {
+        goToSlide(currentIndex - 1);
+      } else if (deltaX < -threshold && currentIndex < slides.length - 1) {
+        goToSlide(currentIndex + 1);
+      }
+    }
+  </script>
+
+</body>
+</html>
+
